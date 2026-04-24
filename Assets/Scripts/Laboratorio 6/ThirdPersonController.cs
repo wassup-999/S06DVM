@@ -56,7 +56,7 @@ public class ThirdPersonController : MonoBehaviour
     public float maxTimeInAir;
     [FoldoutGroup("WallRun")]
     public bool enableWallRun;
-
+    
     Vector3 normalDebug;
     Vector3 impactPoint;
     Vector3 crossResult;
@@ -118,10 +118,7 @@ public class ThirdPersonController : MonoBehaviour
         }
         else
         {
-            moveDir = (crossResult * moveInput.y) * moveSpeed;
-
-
-            
+            moveDir = (crossResult * moveInput.y) * moveSpeed;           
         }
 
         float magnitud = Mathf.Abs(controller.velocity.magnitude);
@@ -158,11 +155,12 @@ public class ThirdPersonController : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (!controller.isGrounded) return;
-
+        
+        if (!controller.isGrounded )return;
+      
+        source.GenerateImpulse();    
         animator.SetTrigger("Jump");
-        source.GenerateImpulse();
-        verticalVelocity = jumpForce;
+        verticalVelocity = jumpForce;       
     }
     public void OnSimpleMove()
     {
@@ -172,8 +170,6 @@ public class ThirdPersonController : MonoBehaviour
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-
-
         Vector3 pushDir = (hit.transform.position - transform.position).normalized;
 
         if (hit.rigidbody != null && hit.rigidbody.linearVelocity == Vector3.zero)
@@ -208,6 +204,7 @@ public class ThirdPersonController : MonoBehaviour
         {
             hit = hitRight;
             characterCamera.Lens.Dutch = cameraTitlt;
+            
         }
         else if(hitLeft.collider != null && hitLeft.collider.gameObject.tag == "Wall")
         {
@@ -216,13 +213,17 @@ public class ThirdPersonController : MonoBehaviour
         }
         else
         {
+            
             characterCamera.Lens.Dutch = 0;
             enableWallRun = false;
+            
+            
         }
 
         if(hit.collider != null)
         {
             enableWallRun = true;
+
             Debug.Log("AleluyaR");
 
             normalDebug = hit.normal;
@@ -233,6 +234,7 @@ public class ThirdPersonController : MonoBehaviour
             {
                 crossResult *= -1;
             }
+            
         }
 
 
@@ -295,6 +297,12 @@ public class ThirdPersonController : MonoBehaviour
             yield return null;
         }
         CanDash = true;
+        yield break;
+    }
+
+    public IEnumerator WalkRunCoolDown()
+    {
+       
         yield break;
     }
 }
