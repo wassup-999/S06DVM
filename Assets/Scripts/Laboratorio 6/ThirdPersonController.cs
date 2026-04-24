@@ -216,8 +216,7 @@ public class ThirdPersonController : MonoBehaviour
             
             characterCamera.Lens.Dutch = 0;
             enableWallRun = false;
-            
-            
+            StartCoroutine(WalkRunCoolDown());
         }
 
         if(hit.collider != null)
@@ -236,11 +235,6 @@ public class ThirdPersonController : MonoBehaviour
             }
             
         }
-
-
-
-
-
 
         /*
         if (hitRight.collider != null &&  hitRight.collider.gameObject.tag == "Wall")
@@ -302,7 +296,11 @@ public class ThirdPersonController : MonoBehaviour
 
     public IEnumerator WalkRunCoolDown()
     {
-       
+        while (enableWallRun) 
+        { 
+            Debug.Log("Cooldown");
+            yield return null;
+        }
         yield break;
     }
 }
