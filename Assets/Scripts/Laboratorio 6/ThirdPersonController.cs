@@ -2,6 +2,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
+using System.Collections;
 
 public class ThirdPersonController : MonoBehaviour
 {
@@ -34,6 +35,12 @@ public class ThirdPersonController : MonoBehaviour
     public float dashDuration = 0.2f;
     [FoldoutGroup("Controller/Dash")]
     private float dashTimer;
+    [FoldoutGroup("Controller/Dash")]
+    public bool CanDash = true;
+    [FoldoutGroup("Controller/Dash")]
+    public float CurrentCooldownDash;
+    [FoldoutGroup("Controller/Dash")]
+    public float CoolDownDash = 3f;
     [FoldoutGroup("Controller/Animator"), SerializeField]
     private CinemachineImpulseSource source;
 
@@ -177,8 +184,14 @@ public class ThirdPersonController : MonoBehaviour
     }
     private void OnDash(InputAction.CallbackContext context)
     {
-        IsDashing = true;
-        dashTimer = dashDuration;
+        if (CanDash)
+        {
+            IsDashing = true;
+            CanDash = false;
+            dashTimer = dashDuration;
+            StartCoroutine(DashCooldown());
+        }
+        
     }
 
     public void EnableWallRun()
@@ -272,5 +285,16 @@ public class ThirdPersonController : MonoBehaviour
         Gizmos.DrawRay(impactPoint, crossResult * rayLenght);
 
 
+    }
+    public IEnumerator DashCooldown()
+    {
+        CurrentCooldownDash = 0;
+        while (CurrentCooldownDash < CoolDownDash)
+        {
+            CurrentCooldownDash += Time.deltaTime;
+            yield return null;
+        }
+        CanDash = true;
+        yield break;
     }
 }
