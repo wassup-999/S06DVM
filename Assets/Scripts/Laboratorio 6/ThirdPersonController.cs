@@ -53,9 +53,11 @@ public class ThirdPersonController : MonoBehaviour
     [FoldoutGroup("WallRun")]
     public float cameraTitlt = 15;
     [FoldoutGroup("WallRun")]
-    public float maxTimeInAir;
-    [FoldoutGroup("WallRun")]
     public bool enableWallRun;
+   [FoldoutGroup("WallRun")]
+    public float maxTimeInAir = 2f;
+    [FoldoutGroup("WallRun")]
+    public bool canWallRun = true;
     
     Vector3 normalDebug;
     Vector3 impactPoint;
@@ -88,8 +90,7 @@ public class ThirdPersonController : MonoBehaviour
     void Update()
     {
         EnableWallRun();
-        OnMove();
-        //OnSimpleMove();
+        OnMove();       
     }
 
     public void OnMove()
@@ -122,7 +123,7 @@ public class ThirdPersonController : MonoBehaviour
         }
 
         float magnitud = Mathf.Abs(controller.velocity.magnitude);
-        // print(magnitud);
+        
         animator.SetFloat("Speed", magnitud);
 
 
@@ -155,18 +156,13 @@ public class ThirdPersonController : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        
-        if (!controller.isGrounded )return;
+
+        if (!controller.isGrounded) return;
       
-        source.GenerateImpulse();    
+        
+        source.GenerateImpulse();
         animator.SetTrigger("Jump");
-        verticalVelocity = jumpForce;       
-    }
-    public void OnSimpleMove()
-    {
-        transform.Rotate(Vector3.up * moveInput.x * rotationSpeed * Time.deltaTime);
-        Vector3 moveDir = transform.forward * moveSpeed * moveInput.y;
-        controller.SimpleMove(moveDir);
+        verticalVelocity = jumpForce;
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -215,13 +211,20 @@ public class ThirdPersonController : MonoBehaviour
         {
             
             characterCamera.Lens.Dutch = 0;
-            enableWallRun = false;
-            StartCoroutine(WalkRunCoolDown());
+            enableWallRun = false;            
         }
 
         if(hit.collider != null)
         {
-            enableWallRun = true;
+            ///////////////////////Implementacion del cooldown para evitar que el personaje se quede pegado a la pared al saltar y vuelva a iniciar el wallrun inmediatamente, se podria mejorar con un timer en vez de un waitforseconds
+            if (canWallRun)
+            {
+                enableWallRun = true;
+                verticalVelocity = -2f;
+                StartCoroutine(WalkRunCoolDown());
+     
+            }
+                
 
             Debug.Log("AleluyaR");
 
@@ -296,11 +299,11 @@ public class ThirdPersonController : MonoBehaviour
 
     public IEnumerator WalkRunCoolDown()
     {
-        while (enableWallRun) 
-        { 
-            Debug.Log("Cooldown");
-            yield return null;
-        }
+        canWallRun = false;
+        
+        yield return new WaitForSeconds(maxTimeInAir);
+        canWallRun = true;
+       
         yield break;
     }
 }
