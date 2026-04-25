@@ -2339,7 +2339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6b37a5e582f9342872fa642d562963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMechanics
-  Life: 100
+  Life: 10
 --- !u!114 &1340681071
 MonoBehaviour:
   m_ObjectHideFlags: 0

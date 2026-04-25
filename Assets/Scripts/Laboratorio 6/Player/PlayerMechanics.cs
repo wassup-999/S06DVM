@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMechanics : MonoBehaviour ,ITakeDamage
 {
@@ -25,8 +26,13 @@ public class PlayerMechanics : MonoBehaviour ,ITakeDamage
     {
         if (Life <= 0)
         {
-            Debug.Log("Player is dead");
+            Debug.Log("Player is dead");          
             Destroy(gameObject);
+            ReloadLevel();
         }
+    }
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
