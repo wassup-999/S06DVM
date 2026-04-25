@@ -47,8 +47,10 @@ public class EnemySpawner : MonoBehaviour
                 Debug.Log("Max Enemies Reached");
                 SpawnCounter *= 0f;
             }
-        } 
-        //falta implementacion
-        
+            else
+            {
+                 SpawnCounter *= 1f;
+            }          
+        }    
     }
 }

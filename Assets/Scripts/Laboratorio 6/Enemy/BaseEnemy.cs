@@ -53,6 +53,7 @@ public class BaseEnemy : MonoBehaviour
         if (Vector3.Distance(Player.transform.position, transform.position) <= agent.stoppingDistance)
         {
             Player.TakeDamage(10);
+            GameManager.Instance.enemySpawner.CurrentEnemies--;
             Destroy(gameObject);
         }     
     }
