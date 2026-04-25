@@ -13,7 +13,7 @@ public class PlayerMechanics : MonoBehaviour ,ITakeDamage
     
     void Update()
     {
-        
+        OnDestroy();
     }
     public void TakeDamage(int damage)
     {
@@ -21,5 +21,12 @@ public class PlayerMechanics : MonoBehaviour ,ITakeDamage
         Life -= damage;
         Debug.Log("Player hit");       
     }
-    
+    public void OnDestroy()
+    {
+        if (Life <= 0)
+        {
+            Debug.Log("Player is dead");
+            Destroy(gameObject);
+        }
+    }
 }

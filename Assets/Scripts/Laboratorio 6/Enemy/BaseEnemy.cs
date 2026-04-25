@@ -5,36 +5,38 @@ using UnityEngine.AI;
 public class BaseEnemy : MonoBehaviour
 {
     [FoldoutGroup("References")]
-    public Transform Target;
+    public PlayerMechanics Player;
     [FoldoutGroup("References")]
     public NavMeshAgent agent;
-    void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        Target = GameObject.FindGameObjectWithTag("Player").transform;
 
-        
+    [FoldoutGroup("Attack Settings")]
+    public float AttackRange;
+    void Start()
+    {       
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMechanics>();           
+        agent = GetComponent<NavMeshAgent>();         
     }
 
     
     void Update()
     {
         FollowTarget();
-        //MakeDamage();
+        MakeDamage();
     }
     public void FollowTarget()
-    {
+    {       
         if (!agent.hasPath)
         {
             Debug.Log("No path to follow");
         }
-        if(Target != null)
+        if(Player != null)
         {
-            agent.SetDestination(Target.position);
+            agent.SetDestination(Player.transform.position);
         }      
     }
     public void OnDrawGizmos()
     {
+        if(Player == null) return;
         Gizmos.color = Color.black;
         if (agent.path == null) return;
         Vector3[] corners = agent.path.corners;
@@ -44,23 +46,16 @@ public class BaseEnemy : MonoBehaviour
             Gizmos.DrawSphere(corners[i], 0.2f);
         }
     }
-    /*
+    
     public void MakeDamage()
     {
-        if(Vector3.Distance(Target.transform.position, transform.position) < agent.stoppingDistance)
+        if(Player == null) return;
+        if (Vector3.Distance(Player.transform.position, transform.position) <= agent.stoppingDistance)
         {
-            //GameManager.Instance.Player.TakeDamage(10);
+            Player.TakeDamage(10);
             Destroy(gameObject);
-        }
-    }*/
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            GameManager.Instance.Player.TakeDamage(10);
-            Debug.Log("Player hit");
-            Destroy(gameObject);
-        }
+        }     
     }
+    
 }
 
