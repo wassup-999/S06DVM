@@ -48,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
                 SpawnCounter *= 0f;
             }
         } 
-
+        //falta implementacion
         
     }
 }

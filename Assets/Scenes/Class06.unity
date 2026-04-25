@@ -731,7 +731,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2784616139619072922, guid: 85dae02f420e09f4498084002855e85c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 267843597}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2714739774781837426, guid: 85dae02f420e09f4498084002855e85c, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1340681071}
+    - targetCorrespondingSourceObject: {fileID: 2714739774781837426, guid: 85dae02f420e09f4498084002855e85c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1340681070}
   m_SourcePrefab: {fileID: 100100000, guid: 85dae02f420e09f4498084002855e85c, type: 3}
 --- !u!4 &324515114 stripped
 Transform:
@@ -860,7 +866,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b531195b5d2b1d44e90cc7ef65d0f396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  Player: {fileID: 1340681068}
+  PlayerController: {fileID: 0}
+  Player: {fileID: 0}
   enemySpawner: {fileID: 1892978140}
   EnemyPrefab: {fileID: 4798982189659133142, guid: b4eb93511debc4e4280e8bee40b03267, type: 3}
 --- !u!43 &881671050
@@ -2304,17 +2311,49 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &1340681067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2714739774781837426, guid: 85dae02f420e09f4498084002855e85c, type: 3}
+  m_PrefabInstance: {fileID: 324515113}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1340681068 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4001763180905476009, guid: 85dae02f420e09f4498084002855e85c, type: 3}
   m_PrefabInstance: {fileID: 324515113}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1340681067}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74ca35e34e4961743a9e52538c40a291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThirdPersonController
+--- !u!114 &1340681070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340681067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db6b37a5e582f9342872fa642d562963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMechanics
+  Life: 100
+--- !u!114 &1340681071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340681067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c39e00bb85d1024083ba769effac566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  playerController: {fileID: 1340681068}
+  Player: {fileID: 1340681070}
 --- !u!1 &1352805639
 GameObject:
   m_ObjectHideFlags: 0

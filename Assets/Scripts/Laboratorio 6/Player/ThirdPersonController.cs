@@ -59,8 +59,7 @@ public class ThirdPersonController : MonoBehaviour
     [FoldoutGroup("WallRun")]
     public float CDWalkRun = 2f;
     [FoldoutGroup("WallRun")]
-    public float CurrentCDWalkRun;
-
+    public float CurrentCDWalkRun;  
 
     Vector3 normalDebug;
     Vector3 impactPoint;
@@ -87,8 +86,7 @@ public class ThirdPersonController : MonoBehaviour
         inputs.Player.Sprint.performed += OnDash;
     }
     void Start()
-    {
-
+    {        
     }
     void Update()
     {

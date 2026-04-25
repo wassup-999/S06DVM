@@ -20,7 +20,7 @@ public class BaseEnemy : MonoBehaviour
     void Update()
     {
         FollowTarget();
-        MakeDamage();
+        //MakeDamage();
     }
     public void FollowTarget()
     {
@@ -33,7 +33,7 @@ public class BaseEnemy : MonoBehaviour
             agent.SetDestination(Target.position);
         }      
     }
-    private void OnDrawGizmos()
+    public void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
         if (agent.path == null) return;
@@ -44,10 +44,20 @@ public class BaseEnemy : MonoBehaviour
             Gizmos.DrawSphere(corners[i], 0.2f);
         }
     }
+    /*
     public void MakeDamage()
     {
         if(Vector3.Distance(Target.transform.position, transform.position) < agent.stoppingDistance)
         {
+            //GameManager.Instance.Player.TakeDamage(10);
+            Destroy(gameObject);
+        }
+    }*/
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GameManager.Instance.Player.TakeDamage(10);
             Debug.Log("Player hit");
             Destroy(gameObject);
         }
