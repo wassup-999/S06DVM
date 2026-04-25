@@ -28,11 +28,8 @@ public class PlayerMechanics : MonoBehaviour ,ITakeDamage
         {
             Debug.Log("Player is dead");          
             Destroy(gameObject);
-            ReloadLevel();
+            GameManager.Instance.UI.ReloadLevel();
         }
     }
-    public void ReloadLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+    
 }
