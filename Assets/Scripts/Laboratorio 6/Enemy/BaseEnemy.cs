@@ -10,7 +10,7 @@ public class BaseEnemy : MonoBehaviour
     public NavMeshAgent agent;
 
     [FoldoutGroup("Attack Settings")]
-    public float AttackRange;
+    public int AttackDamage = 10;
     void Start()
     {       
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMechanics>();           
@@ -51,8 +51,8 @@ public class BaseEnemy : MonoBehaviour
     {
         if(Player == null) return;
         if (Vector3.Distance(Player.transform.position, transform.position) <= agent.stoppingDistance)
-        {
-            Player.TakeDamage(10);
+        {           
+            Player.TakeDamage(10);           
             GameManager.Instance.enemySpawner.CurrentEnemies--;
             Destroy(gameObject);
         }     

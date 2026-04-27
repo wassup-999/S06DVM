@@ -2,13 +2,15 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [FoldoutGroup("References")]
     public Image HealthBar;
-    public TextMeshPro LifePorcentage;
+    [FoldoutGroup("References")]
+    public TextMeshProUGUI LifePorcentage;
+    
     void Start()
     {
         
@@ -26,6 +28,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateDamage()
     {
-        GameManager.Instance.Enemy.MakeDamage();
+        HealthBar.fillAmount = GameManager.Instance.Player.Life / GameManager.Instance.Player.MaxLife;
+        LifePorcentage.text = GameManager.Instance.Player.Life.ToString() + "%";
     }
 }
