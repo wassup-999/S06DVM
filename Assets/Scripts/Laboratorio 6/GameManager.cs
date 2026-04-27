@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [FoldoutGroup("References")]
     public GameObject EnemyPrefab;
     [FoldoutGroup("References")]
+    public BaseEnemy Enemy;
+    [FoldoutGroup("References")]
     public UIManager UI;
     private void Awake()
     {
