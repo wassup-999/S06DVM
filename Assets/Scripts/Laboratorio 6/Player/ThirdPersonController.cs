@@ -14,9 +14,7 @@ public class ThirdPersonController : MonoBehaviour
     public CinemachineCamera characterCamera;
     [FoldoutGroup("References")]
     public Animator animator;
-    [FoldoutGroup("References")]
-    public LineRenderer RayPrefab;
-
+    
     [FoldoutGroup("Controller")]
     public float moveSpeed = 5f;
     [FoldoutGroup("Controller")]
